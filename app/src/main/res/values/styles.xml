@@ -11,10 +11,10 @@
     <style name="movie_textview_style" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="android:textAlignment">center</item>
         <item name="android:layout_gravity">top</item>
-        <item name="textStyle">italy</item>
+        <item name="android:textStyle">italic</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/movie_listview_height</item>
-        <item name="android:text">Moviews</item>
+        <item name="android:text">Movies</item>
     </style>
 
 </resources>
