@@ -1,6 +1,5 @@
 package com.iexpress.hello.junpopularmovies;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,15 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iexpress.hello.junpopularmovies.util.MovieApiUtil;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 /**
  * MovieFragment class to hold movie thumbnails in the grid.
@@ -45,8 +38,8 @@ import java.util.List;
 public class MovieFragment extends Fragment {
   private final static String LOGTAG = MovieFragment.class.getSimpleName();
 
-  private ListView movieListView;
-  private TextView movieTextView;
+  //private ListView movieListView;
+  //private TextView movieTextView;
 
   private GridView movieGridView;
 
@@ -66,8 +59,8 @@ public class MovieFragment extends Fragment {
                            ViewGroup container, Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-    movieListView = (ListView) rootView.findViewById(R.id.listview_movie);
-    movieTextView = (TextView) rootView.findViewById(R.id.textView_movie);
+    //movieListView = (ListView) rootView.findViewById(R.id.listview_movie);
+    //movieTextView = (TextView) rootView.findViewById(R.id.textView_movie);
 
     movieGridView = (GridView) rootView.findViewById(R.id.gridview_movie);
 
@@ -165,54 +158,6 @@ public class MovieFragment extends Fragment {
   }
 
 
-  public class MovieImageAdapter extends BaseAdapter {
-    private Context context;
-    private String[] posterPaths;
-    private Integer[] tmdbIds;
 
-    public MovieImageAdapter(Context c) {
-      context = c;
-    }
-
-    public int getCount() {
-      return posterPaths.length;
-    }
-
-    public Object getItem(int position) {
-      return null;
-    }
-
-    public long getItemId(int position) {
-      return 0;
-    }
-
-    // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
-      ImageView imageView;
-      if (convertView == null) {
-        // if it's not recycled, initialize some attributes
-        imageView = new ImageView(context);
-        imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setPadding(8, 8, 8, 8);
-      } else {
-        imageView = (ImageView) convertView;
-      }
-
-      Picasso.with(getActivity())
-          .load(posterPaths[position])
-          .into(imageView);
-
-      return imageView;
-    }
-
-    public void setTmdbIds(Integer[] tmdbIds) {
-      this.tmdbIds = tmdbIds;
-    }
-
-    public void setPosterPaths(String[] posterPaths) {
-      this.posterPaths = posterPaths;
-    }
-  }
 
 }

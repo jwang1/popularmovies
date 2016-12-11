@@ -10,9 +10,8 @@ import java.util.List;
 /**
  * Util class for MovieDB API
  *
+ * Thought about using Apache Jackson
  * https://www.mkyong.com/java/jackson-2-convert-java-object-to-from-json/
- *
- * http://www.vogella.com/tutorials/AndroidJSON/article.html
  *
  * Created by jwang on 12/10/16.
  */
@@ -35,9 +34,15 @@ public class MovieApiUtil {
   public final static String BACKDROP_PATH = "backdrop_path";
   public final static String OVERVIEW = "overview";
   public final static String RELEASE_DATE = "release_date";
+  public final static String TITLE = "title";
   public final static String ORIGINAL_TITLE = "original_title";
+  public final static String ORIGINAL_LANGUAGE = "original_language";
   public final static String POPULARITY = "popularity";
   public final static String ID = "id";
+  public final static String ADULT = "adult";
+  public final static String VIDEO = "video";
+  public final static String VOTE_AVERAGE = "vote_average";
+  public final static String VOTE_COUNT = "vote_count";
 
 
   public static JSONObject getTmdbJsonObject(String jsonResponse) throws JSONException {
@@ -45,11 +50,48 @@ public class MovieApiUtil {
   }
 
   /**
+   * Map TMDB JSON data to MovieData object.
+   *
+   * @param jsonResponse TMDB JSON Response
+   * @return a list of MovieData objects
+   * @throws JSONException exception raised by JSON library.
+   */
+  public static List<MovieData> parseTmdbJson(String jsonResponse) throws JSONException {
+    List<MovieData> movies = new ArrayList<>();
+    JSONObject tmdbJsonObj = getTmdbJsonObject(jsonResponse);
+    JSONArray moviesArray = tmdbJsonObj.getJSONArray(RESULTS);
+    MovieData data;
+    JSONObject movieJsonObj;
+
+    for (int i = 0; i < moviesArray.length(); i++) {
+      movieJsonObj = moviesArray.getJSONObject(i);
+
+      data = new MovieData();
+      movies.add(data);
+
+      data.setAdult(movieJsonObj.getBoolean(ADULT));
+      data.setBackdropPath(movieJsonObj.getString(BACKDROP_PATH));
+      data.setId(movieJsonObj.getInt(ID));
+      data.setOriginalLanguage(movieJsonObj.getString(ORIGINAL_LANGUAGE));
+      data.setOriginalTitle(movieJsonObj.getString(ORIGINAL_TITLE));
+      data.setOverview(movieJsonObj.getString(OVERVIEW));
+      data.setPopularity(movieJsonObj.getDouble(POPULARITY));
+      data.setReleaseDate(movieJsonObj.getString(RELEASE_DATE));
+      data.setVideo(movieJsonObj.getBoolean(VIDEO));
+      data.setVoteAverage(movieJsonObj.getDouble(VOTE_AVERAGE));
+      data.setVoteCount(movieJsonObj.getInt(VOTE_COUNT));
+      data.setTitle(movieJsonObj.getString(TITLE));
+    }
+
+    return movies;
+  }
+
+  /**
    * Returning list of string of id:poster_path
    *
-   * @param movieResponse
-   * @return
-   * @throws JSONException
+   * @param movieResponse TMDB JSON Response
+   * @return a list of string of id:poster_path information
+   * @throws JSONException exception from JSON library if raised during JSON parsing.
    */
   public static List<String> getMovieDataFromJsonResponse(String movieResponse) throws JSONException {
     List<String> results = new ArrayList<>();
