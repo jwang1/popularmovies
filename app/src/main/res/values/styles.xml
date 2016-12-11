@@ -17,4 +17,22 @@
         <item name="android:text">Movies</item>
     </style>
 
+    <style name="movie_listview_style" parent="Widget.AppCompat.ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/movie_listview_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/movie_listview_background</item>
+    </style>
+
+    <style name="movie_gridview_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:columnWidth">@dimen/movie_gridview_column_width</item>
+        <item name="android:gravity">center</item>
+        <item name="android:horizontalSpacing">@dimen/movie_gridview_horizontal_spacing</item>
+        <item name="android:numColumns">auto_fit</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:verticalSpacing">@dimen/movie_gridview_vertical_spacing</item>
+    </style>
+
 </resources>
