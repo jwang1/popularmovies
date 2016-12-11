@@ -43,7 +43,7 @@ public class MovieFragment extends Fragment {
 
   private GridView movieGridView;
 
-  private String sortBy = "popularity,desc";  // can be popularity,desc
+  private String sortBy = "popularity.desc";  // can be popularity,desc worked, but different result from popularity.desc
 
   public MovieFragment() {
 
@@ -84,7 +84,8 @@ public class MovieFragment extends Fragment {
     @Override
     protected void onProgressUpdate(String... values) {
       super.onProgressUpdate(values);
-      Toast.makeText(getActivity(), "movieDb API in progress ... " + movieResponse, Toast.LENGTH_LONG);
+      Toast.makeText(getActivity(), "movieDb API in progress ... " + movieResponse, Toast.LENGTH_LONG)
+          .show();
     }
 
     // runs in background thread
@@ -154,10 +155,6 @@ public class MovieFragment extends Fragment {
         }
       }
     }
-
   }
-
-
-
 
 }
