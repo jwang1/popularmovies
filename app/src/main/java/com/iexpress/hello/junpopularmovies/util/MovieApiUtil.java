@@ -17,15 +17,35 @@ import java.util.List;
  */
 
 public class MovieApiUtil {
+
+  // ----------------------------------------------------------------------------
+  // Get popular movies, let TMDB give us some results
+  // ----------------------------------------------------------------------------
   // http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=...   (note, it's not , before desc;  instead . )
   public final static String TMDB_DISCOVER_URL_BASE = "http://api.themoviedb.org/3/discover/movie?";
+
+  // ----------------------------------------------------------------------------
+  // Search TMDB based on some query string, eg: actor's name etc
+  // ----------------------------------------------------------------------------
   // http://api.themoviedb.org/3/search/movie?query=tiger&api_key=...
   // https://www.themoviedb.org/documentation/api/discover?language=en    (showing more options for 'discover' api
   public final static String TMDB_SEARCH_URL_BASE = "http://api.themoviedb.org/3/search/movie?";
+
+  // ----------------------------------------------------------------------------
+  // Using "external" resource_id, for instance, imdb_id;  to find Record in TMDB
+  // ----------------------------------------------------------------------------
   // https://developers.themoviedb.org/3/find
   // https://api.themoviedb.org/3/find/{external_id}?api_key=<<api_key>>&language=en-US&external_source=imdb_id
   // tried this :   http://api.themoviedb.org/3/find/346672?api_key=...&external_source=imdb_id
   public final static String TMDB_FIND_URL_BASE = "http://api.themoviedb.org/3/find/movie?";
+
+
+  // ----------------------------------------------------------------------------
+  // Get TMDB movie details based on its tmdb_id
+  // example : http://api.themoviedb.org/3/movie/553?api_key=...
+  // ----------------------------------------------------------------------------
+  public final static String TMDB_MOVIE_BY_ID_URL_BASE = "http://api.themoviedb.org/3/movie";
+
 
   public final static String TMDB_IMAGE_URL_BASE = "http://image.tmdb.org/t/p/w185";
 
@@ -39,6 +59,7 @@ public class MovieApiUtil {
   public final static String ORIGINAL_LANGUAGE = "original_language";
   public final static String POPULARITY = "popularity";
   public final static String ID = "id";
+  public final static String IMDB_ID = "imdb_id";
   public final static String ADULT = "adult";
   public final static String VIDEO = "video";
   public final static String VOTE_AVERAGE = "vote_average";

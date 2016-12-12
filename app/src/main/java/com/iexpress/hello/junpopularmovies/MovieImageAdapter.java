@@ -35,8 +35,14 @@ public class MovieImageAdapter extends BaseAdapter {
     return null;
   }
 
+  /**
+   * Returns the tmdb_id of the image of the movie being clicked
+   *
+   * @param position movie position in the GridView
+   * @return tmdb_id of the movie being clicked
+   */
   public long getItemId(int position) {
-    return 0;
+    return tmdbIds[position];
   }
 
   // create a new ImageView for each item referenced by the Adapter

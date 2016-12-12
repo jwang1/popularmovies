@@ -1,11 +1,15 @@
 package com.iexpress.hello.junpopularmovies;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -52,6 +56,25 @@ public class MovieFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+  }
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.movie_fragment, menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+
+    if (id == R.id.action_refresh) {
+      FetchMovieTask task = new FetchMovieTask();
+      task.execute(sortBy);
+      return true;
+    }
+
+    return true;
   }
 
   @Override
@@ -67,8 +90,17 @@ public class MovieFragment extends Fragment {
     FetchMovieTask task = new FetchMovieTask();
     task.execute(sortBy);
 
+    movieGridView.setOnItemClickListener((adapterView, view, i, l) -> {
+      Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
+          .putExtra(Intent.EXTRA_TEXT, "" + ((GridView) adapterView).getAdapter().getItemId(i));
+
+      startActivity(detailIntent);
+    });
+
     return rootView;
   }
+
+
 
   public class FetchMovieTask extends AsyncTask<String, String, String> {
 
