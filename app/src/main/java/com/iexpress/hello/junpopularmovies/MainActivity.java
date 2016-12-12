@@ -1,8 +1,11 @@
 package com.iexpress.hello.junpopularmovies;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +19,29 @@ public class MainActivity extends AppCompatActivity {
           .add(R.id.activity_main, new MovieFragment())
           .commit();
     }
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+
+    if (id == R.id.action_settings) {
+      //Toast.makeText(this, "settings clicked...", Toast.LENGTH_LONG).show();
+
+      // Settings
+      Intent intent = new Intent(this, MovieSettingsActivity.class);
+      startActivity(intent);
+
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 
 }
