@@ -38,6 +38,9 @@ import java.net.URL;
  */
 public class MovieDetailFragment extends Fragment {
 
+  private final static int MOVIE_VIEW_LAYOUT_HEIGHT = 550;
+  private final static int MOVIE_VIEW_LAYOUT_WIDTH = 450;
+
   private final static String MOVIE_SHARE_HASHTAG = "#PopularMovie";
   private final static String LOG_TAG = MovieDetailFragment.class.getSimpleName();
 
@@ -86,13 +89,17 @@ public class MovieDetailFragment extends Fragment {
     movieImageView = (ImageView) rootView.findViewById(R.id.imageView_movie_poster);
     movieTextView = (TextView) rootView.findViewById(R.id.textview_movie_details);
 
-    movieImageView.setLayoutParams(new GridView.LayoutParams(350, 350));
+    // http://stackoverflow.com/questions/3144940/set-imageview-width-and-height-programmatically
+    movieImageView.requestLayout();
+    movieImageView.setAdjustViewBounds(true);
+    movieImageView.getLayoutParams().height = MOVIE_VIEW_LAYOUT_HEIGHT;
+    movieImageView.getLayoutParams().width = MOVIE_VIEW_LAYOUT_WIDTH;
     movieImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     Intent intent = getActivity().getIntent();
     if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
       tmdbId = intent.getStringExtra(Intent.EXTRA_TEXT);
-      movieInfo = MovieApiUtil.TMDB_MOVIE_BY_ID_URL_BASE + tmdbId;
+      movieInfo = MovieApiUtil.TMDB_MOVIE_BY_ID_URL_BASE + "/" + tmdbId;
     }
 
     FetchMovieDetailTask task = new FetchMovieDetailTask();
