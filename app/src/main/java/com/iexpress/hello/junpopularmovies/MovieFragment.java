@@ -79,9 +79,6 @@ public class MovieFragment extends Fragment {
                            ViewGroup container, Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-    //movieListView = (ListView) rootView.findViewById(R.id.listview_movie);
-    //movieTextView = (TextView) rootView.findViewById(R.id.textView_movie);
-
     movieGridView = (GridView) rootView.findViewById(R.id.gridview_movie);
 
     FetchMovieTask task = new FetchMovieTask();

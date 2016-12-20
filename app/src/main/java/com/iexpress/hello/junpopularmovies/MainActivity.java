@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     int id = item.getItemId();
 
     if (id == R.id.action_settings) {
-      //Toast.makeText(this, "settings clicked...", Toast.LENGTH_LONG).show();
-
       // Settings
       Intent intent = new Intent(this, MovieSettingsActivity.class);
       startActivity(intent);
