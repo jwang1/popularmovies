@@ -42,12 +42,9 @@ import java.net.URL;
 public class MovieFragment extends Fragment {
   private final static String LOGTAG = MovieFragment.class.getSimpleName();
 
-  //private ListView movieListView;
-  //private TextView movieTextView;
-
   private GridView movieGridView;
 
-  private String sortBy = "popularity.desc";  // can be popularity,desc worked, but different result from popularity.desc
+  private String apiUrl = MovieApiUtil.TMDB_POPULAR_URL_BASE;
 
   public MovieFragment() {
 
@@ -70,7 +67,7 @@ public class MovieFragment extends Fragment {
 
     if (id == R.id.action_refresh) {
       FetchMovieTask task = new FetchMovieTask();
-      task.execute(sortBy);
+      task.execute(apiUrl);
       return true;
     }
 
@@ -88,7 +85,7 @@ public class MovieFragment extends Fragment {
     movieGridView = (GridView) rootView.findViewById(R.id.gridview_movie);
 
     FetchMovieTask task = new FetchMovieTask();
-    task.execute(sortBy);
+    task.execute(apiUrl);
 
     movieGridView.setOnItemClickListener((adapterView, view, i, l) -> {
       Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
@@ -124,8 +121,7 @@ public class MovieFragment extends Fragment {
     @Override
     protected String doInBackground(String... params) {
       try {
-        Uri builtUri = Uri.parse(MovieApiUtil.TMDB_DISCOVER_URL_BASE).buildUpon()
-            .appendQueryParameter("sort_by", sortBy)
+        Uri builtUri = Uri.parse(params[0]).buildUpon()
             .appendQueryParameter("api_key", BuildConfig.MOVIE_DB_API_KEY)
             .build();
 
@@ -183,7 +179,9 @@ public class MovieFragment extends Fragment {
           movieGridView.setAdapter(adapter);
 
         } catch (JSONException e) {
-          Log.e(LOGTAG, "caught exception parsing JSON string.");
+          Log.e(LOGTAG, "caught exception parsing JSON string: " + e.getMessage());
+        } catch (Exception e) {
+          Log.e(LOGTAG, "caught exception: " + e.getMessage());
         }
       }
     }

@@ -15,8 +15,8 @@ import com.squareup.picasso.Picasso;
  * Created by jwang on 12/10/16.
  */
 public class MovieImageAdapter extends BaseAdapter {
-  private final int LAYOUT_PARAMS_WIDTH = 250;
-  private final int LAYOUT_PARAMS_HEIGHT = 250;
+  private final int LAYOUT_PARAMS_WIDTH = 10;
+  private final int LAYOUT_PARAMS_HEIGHT = 10;
   private final int IMAGE_VIEW_PADDING = 6;
 
   private Context context;
@@ -51,9 +51,10 @@ public class MovieImageAdapter extends BaseAdapter {
     if (convertView == null) {
       // if it's not recycled, initialize some attributes
       imageView = new ImageView(context);
-      imageView.setLayoutParams(new GridView.LayoutParams(LAYOUT_PARAMS_WIDTH, LAYOUT_PARAMS_HEIGHT));
+//      imageView.setLayoutParams(new GridView.LayoutParams(LAYOUT_PARAMS_WIDTH, LAYOUT_PARAMS_HEIGHT));
       imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-      imageView.setPadding(IMAGE_VIEW_PADDING, IMAGE_VIEW_PADDING, IMAGE_VIEW_PADDING, IMAGE_VIEW_PADDING);
+      imageView.setAdjustViewBounds(true);
+//      imageView.setPadding(IMAGE_VIEW_PADDING, IMAGE_VIEW_PADDING, IMAGE_VIEW_PADDING, IMAGE_VIEW_PADDING);
     } else {
       imageView = (ImageView) convertView;
     }
