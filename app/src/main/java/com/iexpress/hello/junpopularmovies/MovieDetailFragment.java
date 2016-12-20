@@ -190,7 +190,7 @@ public class MovieDetailFragment extends Fragment {
               .load(MovieApiUtil.TMDB_IMAGE_URL_BASE + tmdbPosterPaths)
               .into(movieImageView);
 
-          movieInfo = title + "\n\n" + releaseDate + "\n\n" + overview;
+          movieInfo = "\n\n" + title + "\n\n" + releaseDate + "\n\n" + overview;
 
           movieTextView.setText(movieInfo);
 

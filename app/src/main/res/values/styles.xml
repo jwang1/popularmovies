@@ -35,4 +35,11 @@
         <item name="android:verticalSpacing">@dimen/movie_gridview_vertical_spacing</item>
     </style>
 
+    <style name="movie_details_textviw_style">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

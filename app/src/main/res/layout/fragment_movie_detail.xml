@@ -17,9 +17,7 @@
 
     <TextView
         android:id="@+id/textview_movie_details"
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/movie_details_textviw_style"
         android:text="@string/hello_blank_fragment"/>
 
 </LinearLayout>
