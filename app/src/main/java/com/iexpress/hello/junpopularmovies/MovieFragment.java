@@ -1,9 +1,11 @@
 package com.iexpress.hello.junpopularmovies;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +46,7 @@ public class MovieFragment extends Fragment {
 
   private GridView movieGridView;
 
-  private String apiUrl = MovieApiUtil.TMDB_POPULAR_URL_BASE;
+  private String movieApiPreferred;
 
   public MovieFragment() {
 
@@ -66,8 +68,11 @@ public class MovieFragment extends Fragment {
     int id = item.getItemId();
 
     if (id == R.id.action_refresh) {
+      // Check user's preference before calling TMDB's API
+      retrieveUserPreferredApi();
+
       FetchMovieTask task = new FetchMovieTask();
-      task.execute(apiUrl);
+      task.execute(MovieApiUtil.TMDB_POPULAR_TO_RATED_URL_COMMON_BASE + movieApiPreferred);
       return true;
     }
 
@@ -81,8 +86,11 @@ public class MovieFragment extends Fragment {
 
     movieGridView = (GridView) rootView.findViewById(R.id.gridview_movie);
 
+    // Check user's preference before calling TMDB's API
+    retrieveUserPreferredApi();
+
     FetchMovieTask task = new FetchMovieTask();
-    task.execute(apiUrl);
+    task.execute(MovieApiUtil.TMDB_POPULAR_TO_RATED_URL_COMMON_BASE + movieApiPreferred);
 
     movieGridView.setOnItemClickListener((adapterView, view, i, l) -> {
       Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
@@ -94,6 +102,17 @@ public class MovieFragment extends Fragment {
     return rootView;
   }
 
+  /**
+   * Applying SharedPreferences to check user's preference on Movie API call, popular or top_rated
+   */
+  private void retrieveUserPreferredApi() {
+    // check settings / preference to see which API was chosen by user
+    SharedPreferences sharedPreferences = PreferenceManager
+        .getDefaultSharedPreferences(getActivity());
+
+    movieApiPreferred = sharedPreferences.getString(getString(R.string.pref_movie_api_key),
+        getString(R.string.pref_movie_api_default));
+  }
 
 
   public class FetchMovieTask extends AsyncTask<String, String, String> {

@@ -38,6 +38,9 @@ project.properties
 *.ipr
 *.iws
 
+# vi swap file
+.swp
+
 ##Gradle-based build
 .gradle
 build/

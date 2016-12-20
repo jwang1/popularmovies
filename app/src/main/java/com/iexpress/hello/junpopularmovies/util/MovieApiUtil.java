@@ -24,9 +24,11 @@ public class MovieApiUtil {
   // http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=...   (note, it's not , before desc;  instead . )
   public final static String TMDB_DISCOVER_URL_BASE = "http://api.themoviedb.org/3/discover/movie?";
 
-  public final static String TMDB_POPULAR_URL_BASE = "http://api.themoviedb.org/3/movie/popular";
+  public final static String TMDB_POPULAR_TO_RATED_URL_COMMON_BASE = "http://api.themoviedb.org/3/movie/";
 
-  public final static String TMDB_TOP_RATED_URL_BASE = "http://api.themoviedb.org/3/movie/top_rated";
+  public final static String TMDB_POPULAR_URL_BASE = TMDB_POPULAR_TO_RATED_URL_COMMON_BASE + "popular";
+
+  public final static String TMDB_TOP_RATED_URL_BASE = TMDB_POPULAR_TO_RATED_URL_COMMON_BASE + "top_rated";
 
   // ----------------------------------------------------------------------------
   // Search TMDB based on some query string, eg: actor's name etc

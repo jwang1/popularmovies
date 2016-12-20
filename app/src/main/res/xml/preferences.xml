@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/tmdb_api_array"
+        android:entryValues="@array/tmdb_api_values"
+        android:key="@string/pref_movie_api_key"
+        android:summary="@string/pref_movie_api_summary"
+        android:title="@string/pref_movie_api_title"/>
+</PreferenceScreen>
