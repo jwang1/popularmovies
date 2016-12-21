@@ -185,12 +185,14 @@ public class MovieDetailFragment extends Fragment {
           String tmdbPosterPaths = tmdbJsonObj.getString(MovieApiUtil.POSTER_PATH);
           String overview = tmdbJsonObj.getString(MovieApiUtil.OVERVIEW);
           String releaseDate = tmdbJsonObj.getString(MovieApiUtil.RELEASE_DATE);
+          double avgRating = tmdbJsonObj.getDouble(MovieApiUtil.VOTE_AVERAGE);
 
           Picasso.with(getActivity())
               .load(MovieApiUtil.TMDB_IMAGE_URL_BASE + tmdbPosterPaths)
               .into(movieImageView);
 
-          movieInfo = "\n\n" + title + "\n\n" + releaseDate + "\n\n" + overview;
+          movieInfo = "\n\n" + title + "\n\nReleased on: " + releaseDate
+              + "\nAverage Rating: " + avgRating + "\n\n" + overview;
 
           movieTextView.setText(movieInfo);
 

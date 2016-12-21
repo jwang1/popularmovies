@@ -86,20 +86,30 @@ public class MovieFragment extends Fragment {
 
     movieGridView = (GridView) rootView.findViewById(R.id.gridview_movie);
 
+    return rootView;
+  }
+
+  @Override
+  public void onResume() {
+
     // Check user's preference before calling TMDB's API
+    populateMovies();
+
+    super.onResume();
+  }
+
+  private void populateMovies() {
     retrieveUserPreferredApi();
 
     FetchMovieTask task = new FetchMovieTask();
     task.execute(MovieApiUtil.TMDB_POPULAR_TO_RATED_URL_COMMON_BASE + movieApiPreferred);
 
     movieGridView.setOnItemClickListener((adapterView, view, i, l) -> {
-      Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
-          .putExtra(Intent.EXTRA_TEXT, "" + ((GridView) adapterView).getAdapter().getItemId(i));
+          Intent detailIntent = new Intent(getActivity(), DetailActivity.class)
+              .putExtra(Intent.EXTRA_TEXT, "" + ((GridView) adapterView).getAdapter().getItemId(i));
 
-      startActivity(detailIntent);
-    });
-
-    return rootView;
+          startActivity(detailIntent);
+      });
   }
 
   /**

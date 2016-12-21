@@ -2,6 +2,8 @@
 
     <string name="app_name">StudentPopularMovies</string>
 
+    <string name="share_movie">Share</string>
+
     <string name="title_activity_movie_settings">Settings</string>
 
     <string name="hello_blank_fragment">Issues calling TMDB APIs, not able to get movies from the call to TMDB.</string>
