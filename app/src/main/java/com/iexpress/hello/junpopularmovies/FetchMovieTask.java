@@ -99,7 +99,9 @@ public class FetchMovieTask extends AsyncTask<String, String, String> {
 
         for (int i = 0; i < tmdbMovies.length(); i ++) {
           tmdbIds[i] = tmdbMovies.getJSONObject(i).getInt(MovieApiUtil.ID);
-          tmdbPosterPaths[i] = MovieApiUtil.TMDB_IMAGE_URL_BASE + tmdbMovies.getJSONObject(i).getString(MovieApiUtil.POSTER_PATH);
+          tmdbPosterPaths[i] = MovieApiUtil.TMDB_IMAGE_URL_BASE
+              // + "make_error"   // can this this to generate BOTH "user_placeholder" and "error" in Picasso library in MovieImageAdapter
+              + tmdbMovies.getJSONObject(i).getString(MovieApiUtil.POSTER_PATH);
         }
 
         MovieImageAdapter adapter = new MovieImageAdapter(getActivity());

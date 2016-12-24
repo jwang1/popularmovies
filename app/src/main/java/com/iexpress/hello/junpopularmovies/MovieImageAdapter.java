@@ -4,13 +4,23 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
 /**
  * MovieImageAdapter is used to populate popular movie thumbnails for the GridView; it has little layout handling.
+ *
+ * Regarding the Placeholder image and error handling for Picasso API:
+ *
+ * http://stackoverflow.com/questions/33412856/how-to-add-the-place-holder-image-in-android
+ * -->  and its GitHub example :
+ *
+ * https://futurestud.io/tutorials/picasso-placeholders-errors-and-fading
+ *
+ * http://stackoverflow.com/questions/22143157/android-picasso-placeholder-and-error-image-styling
+ * http://stackoverflow.com/questions/18648573/use-placeholder-image-from-drawable-if-the-image-url-is-null-or-empty
+ *
  *
  * Created by jwang on 12/10/16.
  */
@@ -55,6 +65,8 @@ public class MovieImageAdapter extends BaseAdapter {
 
     Picasso.with(context)
         .load(posterPaths[position])
+        .placeholder(R.drawable.user_placeholder)
+        .error(R.drawable.user_placeholder_error)
         .into(imageView);
 
     return imageView;
