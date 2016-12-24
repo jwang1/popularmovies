@@ -72,6 +72,8 @@ public class MovieFragment extends Fragment {
       retrieveUserPreferredApi();
 
       FetchMovieTask task = new FetchMovieTask();
+      task.setContext(getActivity());
+      task.setMovieGridView(movieGridView);
       task.execute(MovieApiUtil.TMDB_POPULAR_TO_RATED_URL_COMMON_BASE + movieApiPreferred);
       return true;
     }
@@ -102,6 +104,8 @@ public class MovieFragment extends Fragment {
     retrieveUserPreferredApi();
 
     FetchMovieTask task = new FetchMovieTask();
+    task.setContext(getActivity());
+    task.setMovieGridView(movieGridView);
     task.execute(MovieApiUtil.TMDB_POPULAR_TO_RATED_URL_COMMON_BASE + movieApiPreferred);
 
     movieGridView.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -122,95 +126,6 @@ public class MovieFragment extends Fragment {
 
     movieApiPreferred = sharedPreferences.getString(getString(R.string.pref_movie_api_key),
         getString(R.string.pref_movie_api_default));
-  }
-
-
-  public class FetchMovieTask extends AsyncTask<String, String, String> {
-
-    private String movieResponse;
-
-    // runs in UI before background thread is called
-    @Override
-    protected void onPreExecute() {
-      super.onPreExecute();
-    }
-
-    // runs in UI, it's called from background thread
-    @Override
-    protected void onProgressUpdate(String... values) {
-      super.onProgressUpdate(values);
-      Toast.makeText(getActivity(), "movieDb API in progress ... " + movieResponse, Toast.LENGTH_LONG)
-          .show();
-    }
-
-    // runs in background thread
-    @Override
-    protected String doInBackground(String... params) {
-      try {
-        Uri builtUri = Uri.parse(params[0]).buildUpon()
-            .appendQueryParameter("api_key", BuildConfig.MOVIE_DB_API_KEY)
-            .build();
-
-        URL url = new URL(builtUri.toString());
-
-        Log.v(LOGTAG, "built URI: " + builtUri.toString());
-
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.connect();
-
-        InputStream inputStream = conn.getInputStream();
-        StringBuilder sb = new StringBuilder();
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-
-        String line;
-
-        while((line = br.readLine()) != null) {
-          sb.append(line);
-        }
-
-        movieResponse = sb.toString();
-
-        Log.v(LOGTAG, "theMovieDb API response: " + movieResponse);
-
-      } catch (Exception e) {
-        e.printStackTrace();
-        Log.e(LOGTAG, "caught exception!");
-      }
-      return movieResponse;
-    }
-
-    // runs in UI when background thread finishes
-    @Override
-    protected void onPostExecute(String result) {
-      super.onPostExecute(result);
-
-      if (movieResponse != null && movieResponse.length() > 0) {
-        try {
-          JSONObject tmdbJsonObj =  MovieApiUtil.getTmdbJsonObject(movieResponse);
-          JSONArray tmdbMovies = tmdbJsonObj.getJSONArray(MovieApiUtil.RESULTS);
-          Integer[] tmdbIds = new Integer[tmdbMovies.length()];
-          String[] tmdbPosterPaths = new String[tmdbMovies.length()];
-
-          for (int i = 0; i < tmdbMovies.length(); i ++) {
-            tmdbIds[i] = tmdbMovies.getJSONObject(i).getInt(MovieApiUtil.ID);
-            tmdbPosterPaths[i] = MovieApiUtil.TMDB_IMAGE_URL_BASE + tmdbMovies.getJSONObject(i).getString(MovieApiUtil.POSTER_PATH);
-          }
-
-          MovieImageAdapter adapter = new MovieImageAdapter(getActivity());
-          adapter.setPosterPaths(tmdbPosterPaths);
-          adapter.setTmdbIds(tmdbIds);
-
-          movieGridView.setAdapter(adapter);
-
-        } catch (JSONException e) {
-          Log.e(LOGTAG, "caught exception parsing JSON string: " + e.getMessage());
-        } catch (Exception e) {
-          Log.e(LOGTAG, "caught exception: " + e.getMessage());
-        }
-      }
-    }
   }
 
 }
