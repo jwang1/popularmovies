@@ -15,6 +15,15 @@ import android.view.MenuItem;
 
 /**
  * MovieSettingsActivity uses ListPreference fragment.
+ *
+ * Got good understanding on this ActionBar "Up" button's Setting (AndroidManifest.xml),  and onCreate,
+ * and Responding in onMenuItemSelected , on OptionMenuItemSelected
+ *
+ * 1. https://developer.android.com/training/appbar/up-action.html
+ *
+ * 2. https://developer.android.com/training/implementing-navigation/ancestral.html
+ *
+ *
  */
 public class MovieSettingsActivity extends PreferenceActivity {
 
