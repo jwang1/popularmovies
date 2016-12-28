@@ -36,6 +36,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.iexpress.hello.junpopularmovies.MainActivity" />
         </activity>
+
+        <service android:name=".syncadapter.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator"/>
+        </service>
+
     </application>
 
 </manifest>

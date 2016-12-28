@@ -48,10 +48,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    // Picasso support
+    // Stetho support
+    compile 'com.facebook.stetho:stetho:1.4.2'
 
     // Unit Test
     compile 'com.android.support:appcompat-v7:25.0.1'
+    // Picasso support
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:support-v4:25.0.1'
     compile 'com.android.support:support-vector-drawable:25.0.1'

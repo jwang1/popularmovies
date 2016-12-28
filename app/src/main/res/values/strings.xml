@@ -8,6 +8,8 @@
 
     <string name="hello_blank_fragment">Issues calling TMDB APIs, not able to get movies from the call to TMDB.</string>
 
+    <string name="sync_adapter">Sync Adapter</string>
+
     <!-- Strings related to Settings -->
     <string name="pref_movie_api_key" translatable="false">movieApi</string>
 
