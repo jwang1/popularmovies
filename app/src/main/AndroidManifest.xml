@@ -37,6 +37,19 @@
                 android:value="com.iexpress.hello.junpopularmovies.MainActivity" />
         </activity>
 
+        <!-- ContentProvider to store Movie data
+            "Authorities" are defined as part of a ContentProvider interface
+            as an attachment poit for the SyncAdapter.
+
+            this ContentProvider is not exported, will not be accessible
+            outside of this app's package.
+         -->
+        <provider
+            android:authorities="com.iexpress.hello.junpopularmovies"
+            android:name=".MovieContentProvider"
+            android:exported="false" />
+
+
         <service android:name=".syncadapter.AuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator"/>

@@ -1,9 +1,11 @@
 package com.iexpress.hello.junpopularmovies;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -28,33 +30,10 @@ import android.support.annotation.Nullable;
 public class MovieContentProvider extends ContentProvider {
 
   /**
-   * Implement this to initialize your content provider on startup.
-   * This method is called for all registered content providers on the
-   * application main thread at application launch time.  It must not perform
-   * lengthy operations, or application startup will be delayed.
-   * <p>
-   * <p>You should defer nontrivial initialization (such as opening,
-   * upgrading, and scanning databases) until the content provider is used
-   * (via {@link #query}, {@link #insert}, etc).  Deferred initialization
-   * keeps application startup fast, avoids unnecessary work if the provider
-   * turns out not to be needed, and stops database errors (such as a full
-   * disk) from halting application launch.
-   * <p>
-   * <p>If you use SQLite, {@link SQLiteOpenHelper}
-   * is a helpful utility class that makes it easy to manage databases,
-   * and will automatically defer opening until first use.  If you do use
-   * SQLiteOpenHelper, make sure to avoid calling
-   * {@link SQLiteOpenHelper#getReadableDatabase} or
-   * {@link SQLiteOpenHelper#getWritableDatabase}
-   * from this method.  (Instead, override
-   * {@link SQLiteOpenHelper#onOpen} to initialize the
-   * database when it is first opened.)
-   *
    * @return true if the provider was successfully loaded, false otherwise
    */
   @Override
   public boolean onCreate() {
-    // returning true to indicate that the provider loaded correctly.
     return true;
   }
 
@@ -63,40 +42,6 @@ public class MovieContentProvider extends ContentProvider {
    * This method can be called from multiple threads, as described in
    * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
    * and Threads</a>.
-   * <p>
-   * Example client call:<p>
-   * <pre>// Request a specific record.
-   * Cursor managedCursor = managedQuery(
-   * ContentUris.withAppendedId(Contacts.People.CONTENT_URI, 2),
-   * projection,    // Which columns to return.
-   * null,          // WHERE clause.
-   * null,          // WHERE clause value substitution
-   * People.NAME + " ASC");   // Sort order.</pre>
-   * Example implementation:<p>
-   * <pre>// SQLiteQueryBuilder is a helper class that creates the
-   * // proper SQL syntax for us.
-   * SQLiteQueryBuilder qBuilder = new SQLiteQueryBuilder();
-   *
-   * // Set the table we're querying.
-   * qBuilder.setTables(DATABASE_TABLE_NAME);
-   *
-   * // If the query ends in a specific record number, we're
-   * // being asked for a specific record, so set the
-   * // WHERE clause in our query.
-   * if((URI_MATCHER.match(uri)) == SPECIFIC_MESSAGE){
-   * qBuilder.appendWhere("_id=" + uri.getPathLeafId());
-   * }
-   *
-   * // Make the query.
-   * Cursor c = qBuilder.query(mDb,
-   * projection,
-   * selection,
-   * selectionArgs,
-   * groupBy,
-   * having,
-   * sortOrder);
-   * c.setNotificationUri(getContext().getContentResolver(), uri);
-   * return c;</pre>
    *
    * @param uri           The URI to query. This will be the full URI sent by the client;
    *                      if the client is requesting a specific record, the URI will end in a record number
