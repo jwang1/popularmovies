@@ -1,10 +1,12 @@
 package com.iexpress.hello.junpopularmovies.syncadapter;
 
+import android.accounts.Account;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Bind Authenticator to Sync Adatpor framework.
@@ -16,9 +18,32 @@ public class AuthenticatorService extends Service {
 
   private Authenticator authenticator;
 
+  private static final String LOG_TAG = AuthenticatorService.class.getSimpleName();
+
+  private static final String ACCOUNT_TYPE = MovieSyncUtils.CONTENT_AUTHORITY;
+
+  private static final String ACCOUNT_NAME = "movieSync";
+
+  /**
+   * Obtain a handle to {@link android.accounts.Account} used for movie sync in this app.
+   *
+   * @return a handle to application's account (not guaranteed to resolve
+   * unless createSyncAccount() is called)
+   */
+  public static Account getAccount() {
+    final String accountName = ACCOUNT_NAME;
+    return new Account(accountName, ACCOUNT_TYPE);
+  }
+
   @Override
   public void onCreate() {
+    Log.i(LOG_TAG, "AuthenticatorService created.");
     authenticator = new Authenticator(this);
+  }
+
+  @Override
+  public void onDestroy() {
+    Log.i(LOG_TAG, "AuthenticatorService destroyed");
   }
 
   /**
