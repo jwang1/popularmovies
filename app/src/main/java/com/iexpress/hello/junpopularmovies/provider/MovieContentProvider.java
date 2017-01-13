@@ -1,4 +1,4 @@
-package com.iexpress.hello.junpopularmovies;
+package com.iexpress.hello.junpopularmovies.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
