@@ -23,6 +23,8 @@ public class MovieDatabase extends SQLiteOpenHelper {
   /** filename for SQLite file */
   public static final String DATABASE_NAME = "movie.db";
 
+  // https://www.sqlite.org/datatype3.html
+  // no DATE type, using TEXT or INTEGER;  ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS")
   private static final String TYPE_TEXT = "TEXT";
   private static final String TYPE_INTEGER = "INTEGER";
   private static final String COMMA_DELIMITOR = ",";
@@ -30,33 +32,36 @@ public class MovieDatabase extends SQLiteOpenHelper {
   /** DML creating movie_ranking table */
   private static final String DDL_CREATE_MOVIE_RANKING =
       "CREATE TABLE " + MovieContract.MovieRanking.TABLE_NAME + " ("
-      + MovieContract.MovieRanking.COLUMN_NAME_TMDB_ID
-      + MovieContract.MovieRanking.COLUMN_NAME_RANK_ID
-      + MovieContract.MovieRanking.COLUMN_NAME_TYPE
-      + MovieContract.MovieRanking.COLUMN_NAME_CREATION_DATE
-      + MovieContract.MovieRanking.COLUMN_NAME_LAST_UPDATE_DATE + ")";
+      + MovieContract.MovieRanking._ID + " INTEGER PRIMARY KEY, "
+      + MovieContract.MovieRanking.COLUMN_NAME_TMDB_ID + " " + TYPE_INTEGER + COMMA_DELIMITOR
+      + MovieContract.MovieRanking.COLUMN_NAME_RANK_ID + " " + TYPE_INTEGER + COMMA_DELIMITOR
+      + MovieContract.MovieRanking.COLUMN_NAME_TYPE + " " + TYPE_TEXT + COMMA_DELIMITOR
+      + MovieContract.MovieRanking.COLUMN_NAME_CREATION_DATE + " " + TYPE_TEXT + COMMA_DELIMITOR
+      + MovieContract.MovieRanking.COLUMN_NAME_LAST_UPDATE_DATE  + " " + TYPE_TEXT + ")";
 
   private static final String DDL_DROP_MOVIE_RANKING =
       "DROP TABLE IF EXISTS " + MovieContract.MovieRanking.TABLE_NAME;
 
   private static final String DDL_CREATE_FAVORITE_MOVIE =
       "CREATE TABLE " + MovieContract.FavoriteMovie.TABLE_NAME + " ("
-      + MovieContract.FavoriteMovie.COLUMN_NAME_TMDB_ID
-      + MovieContract.FavoriteMovie.COLUMN_NAME_CURRENT_FAVORITE
-      + MovieContract.FavoriteMovie.COLUMN_NAME_CREATION_DATE
-      + MovieContract.FavoriteMovie.COLUMN_NAME_LAST_UPDATE_DATE + ")";
+      + MovieContract.FavoriteMovie._ID + " INTEGER PRIMARY KEY, "
+      + MovieContract.FavoriteMovie.COLUMN_NAME_TMDB_ID + " " + TYPE_INTEGER + COMMA_DELIMITOR
+      + MovieContract.FavoriteMovie.COLUMN_NAME_CURRENT_FAVORITE + " " + TYPE_INTEGER + COMMA_DELIMITOR
+      + MovieContract.FavoriteMovie.COLUMN_NAME_CREATION_DATE + " " + TYPE_TEXT + COMMA_DELIMITOR
+      + MovieContract.FavoriteMovie.COLUMN_NAME_LAST_UPDATE_DATE + " " + TYPE_TEXT + ")";
 
   private static final String DDL_DROP_FAVORITE_MOVIE =
       "DROP TABLE IF EXISTS " + MovieContract.FavoriteMovie.TABLE_NAME;
 
   private static final String DDL_CREATE_MOVIE_DETAIL =
       "CREATE TABLE " + MovieContract.MovieDetail.TABLE_NAME + " ("
-          + MovieContract.MovieDetail.COLUMN_NAME_TMDB_ID
-          + MovieContract.MovieDetail.COLUMN_NAME_INFO
-          + MovieContract.MovieDetail.COLUMN_NAME_VIDEO
-          + MovieContract.MovieDetail.COLUMN_NAME_REVIEW
-          + MovieContract.MovieDetail.COLUMN_NAME_CREATION_DATE
-          + MovieContract.MovieDetail.COLUMN_NAME_LAST_UPDATE_DATE + ")";
+          + MovieContract.MovieDetail._ID + " INTEGER PRIMARY KEY, "
+          + MovieContract.MovieDetail.COLUMN_NAME_TMDB_ID + " " + TYPE_INTEGER + COMMA_DELIMITOR
+          + MovieContract.MovieDetail.COLUMN_NAME_INFO + " " + TYPE_TEXT + COMMA_DELIMITOR
+          + MovieContract.MovieDetail.COLUMN_NAME_VIDEO + " " + TYPE_TEXT + COMMA_DELIMITOR
+          + MovieContract.MovieDetail.COLUMN_NAME_REVIEW + " " + TYPE_TEXT + COMMA_DELIMITOR
+          + MovieContract.MovieDetail.COLUMN_NAME_CREATION_DATE + " " + TYPE_TEXT + COMMA_DELIMITOR
+          + MovieContract.MovieDetail.COLUMN_NAME_LAST_UPDATE_DATE  + " " + TYPE_TEXT + ")";
 
   private static final String DDL_DROP_MOVIE_DETAIL =
       "DROP TABLE IF EXISTS " + MovieContract.MovieDetail.TABLE_NAME;

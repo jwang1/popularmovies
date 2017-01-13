@@ -1,4 +1,4 @@
-package com.iexpress.hello.junpopularmovies.provider;
+package com.iexpress.hello.junpopularmovies;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -9,6 +9,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+
+import com.iexpress.hello.junpopularmovies.provider.MovieDatabase;
 
 /**
  * SyncAdapter to replace the preliminary AsyncTask
@@ -28,12 +30,14 @@ import android.support.annotation.Nullable;
  */
 
 public class MovieContentProvider extends ContentProvider {
+  MovieDatabase databaseHelper;
 
   /**
    * @return true if the provider was successfully loaded, false otherwise
    */
   @Override
   public boolean onCreate() {
+    databaseHelper = new MovieDatabase(getContext());
     return true;
   }
 
