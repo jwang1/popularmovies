@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  // Stetho support
   private class MyDumperPluginProvider implements DumperPluginsProvider {
     private Context context;
 
