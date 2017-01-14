@@ -25,9 +25,9 @@ public class MovieContract {
   public static class MovieRanking implements BaseColumns {
     /** MIME type for record */
     public static final String CONTENT_TYPE =
-        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.syncadapter.rankings";
+        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.rankings";
     public static final String CONTENT_ITEM_TYPE =
-        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.syncadapter.ranking";
+        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.moviesyncadapter.ranking";
 
     public static final Uri CONTENT_URI =
         BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_RANKING).build();
@@ -44,9 +44,9 @@ public class MovieContract {
   public static class FavoriteMovie implements BaseColumns {
     /** MIME type for record */
     public static final String CONTENT_TYPE =
-        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.syncadapter.favorites";
+        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.favorites";
     public static final String CONTENT_ITEM_TYPE =
-        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.syncadapter.favorite";
+        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.moviesyncadapter.favorite";
 
     public static final Uri CONTENT_URI =
         BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_RANKING).build();
@@ -65,9 +65,9 @@ public class MovieContract {
   public static class MovieDetail implements BaseColumns {
     /** MIME type for record */
     public static final String CONTENT_TYPE =
-        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.syncadapter.details";
+        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.details";
     public static final String CONTENT_ITEM_TYPE =
-        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.syncadapter.detail";
+        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.moviesyncadapter.detail";
 
     public static final Uri CONTENT_URI =
         BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_RANKING).build();

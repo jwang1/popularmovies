@@ -15,7 +15,7 @@ import android.preference.PreferenceManager;
 
 public class MovieSyncUtils {
 
-  public static final String CONTENT_AUTHORITY = "com.iexpress.hello.junpopularmovies.syncadapter";
+  public static final String CONTENT_AUTHORITY = "com.iexpress.hello.junpopularmovies.moviesyncadapter";
 
   private static final long SYNC_FREQUENCY = 60 * 60;  // in seconds
 

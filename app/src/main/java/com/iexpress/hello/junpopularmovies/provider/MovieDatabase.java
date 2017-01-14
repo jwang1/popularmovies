@@ -6,10 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Access SQLite datastore utlized by {@link MovieContentProvider}.
+ * Access SQLite datastore utlized by {@link com.iexpress.hello.junpopularmovies.MovieContentProvider}.
  * This database not to be accessed by other parts of the application.
  * (can be a inner class, but made it standalone, so trim down
- * the size of {@line MovieContentProvider} class).
+ * the size of {@link com.iexpress.hello.junpopularmovies.MovieContentProvider} class).
  *
  * Created by jwang on 1/12/17.
  */
@@ -110,5 +110,6 @@ public class MovieDatabase extends SQLiteOpenHelper {
     db.execSQL(DDL_DROP_MOVIE_RANKING);
     db.execSQL(DDL_DROP_MOVIE_RANKING);
     db.execSQL(DDL_DROP_MOVIE_RANKING);
+    onCreate(db);
   }
 }
