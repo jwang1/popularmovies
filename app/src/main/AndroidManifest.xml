@@ -52,7 +52,28 @@
             android:exported="false" />
 
 
+        <!-- this service implements {@link MovieSyncAdapter}.
+             needs to be exported, so that Android sync framework can access it -->
+        <service android:name=".syncadapter.MovieSyncService">
+            <!-- following allows Android to launch our MovieSyncAdapter -->
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <!-- required xml file describing MovieSyncAdapter -->
+            <meta-data android:name="android.content.SyncAdapter"
+                       android:resource="@xml/moviesyncadapter" />
+        </service>
+
+        <!-- Following implements the account used for the MovieSyncService.
+             The sync service does not need to authenticate 'current user' (it
+             uses TMDB account registered to use the API, not end-user);
+             hence the account implementation is mostly empty.
+
+             Mentioned that it is also possible to attach a SyncAdapter to an existing account
+             provided by another package.  That way, the following can be omitted -->
         <service android:name=".syncadapter.AuthenticatorService">
+
+            <!-- required and used by Android to launch Movie AuthenticatorService. -->
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator"/>
             </intent-filter>
