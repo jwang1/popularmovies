@@ -1,9 +1,11 @@
 package com.iexpress.hello.junpopularmovies.provider;
 
 import android.content.ContentResolver;
+import android.content.UriMatcher;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.iexpress.hello.junpopularmovies.MovieContentProvider;
 import com.iexpress.hello.junpopularmovies.syncadapter.MovieSyncUtils;
 
 /**
@@ -16,21 +18,27 @@ public class MovieContract {
   private MovieContract() {
   }
 
+  public static final String PATH_POPULAR_MOVIES = "popular";
+  public static final String PATH_TOP_RATED_MOVIES = "toprated";
+  public static final String PATH_FAVORITE_MOVIES = "favorite";
+  public static final String PATH_MOVIE_DETAIL = "detail";
+
+
   public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + MovieSyncUtils.CONTENT_AUTHORITY);
 
-  private static final String PATH_MOVIE_RANKING = "movie_ranking";
-  private static final String PATH_FAVORITE_MOVIE = "favorite_movie";
-  private static final String PATH_MOVIE_DETAIL = "movie_detail";
 
   public static class MovieRanking implements BaseColumns {
     /** MIME type for record */
-    public static final String CONTENT_TYPE =
-        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.rankings";
-    public static final String CONTENT_ITEM_TYPE =
-        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.moviesyncadapter.ranking";
+    public static final String POPULAR_MOVIE_CONTENT_TYPE =
+        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.popular";
+    public static final String TOP_RATED_MOVIE_CONTENT_TYPE =
+        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.toprated";
 
-    public static final Uri CONTENT_URI =
-        BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_RANKING).build();
+    public static final Uri POPULAR_MOVIE_CONTENT_URI =
+        BASE_CONTENT_URI.buildUpon().appendPath(PATH_POPULAR_MOVIES).build();
+
+    public static final Uri FAVORITE_TOP_RATED_MOVIES =
+        BASE_CONTENT_URI.buildUpon().appendPath(PATH_TOP_RATED_MOVIES).build();
 
     public static final String TABLE_NAME = "movie_ranking";
 
@@ -45,11 +53,9 @@ public class MovieContract {
     /** MIME type for record */
     public static final String CONTENT_TYPE =
         ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.favorites";
-    public static final String CONTENT_ITEM_TYPE =
-        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.moviesyncadapter.favorite";
 
     public static final Uri CONTENT_URI =
-        BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_RANKING).build();
+        BASE_CONTENT_URI.buildUpon().appendPath(PATH_FAVORITE_MOVIES).build();
 
     public static final String TABLE_NAME = "favorite_movie";
 
@@ -65,20 +71,23 @@ public class MovieContract {
   public static class MovieDetail implements BaseColumns {
     /** MIME type for record */
     public static final String CONTENT_TYPE =
-        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.details";
-    public static final String CONTENT_ITEM_TYPE =
-        ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.moviesyncadapter.detail";
+        ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.moviesyncadapter.detail";
 
     public static final Uri CONTENT_URI =
-        BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_RANKING).build();
+        BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE_DETAIL).build();
 
     public static final String TABLE_NAME = "movie_detail";
 
     public static final String COLUMN_NAME_TMDB_ID = "tmdb_id";
 
-    public static final String COLUMN_NAME_INFO = "info";
+    public static final String COLUMN_NAME_TITLE = "title";
+    public static final String COLUMN_NAME_POSTER = "poster";
+    public static final String COLUMN_NAME_PUBLISH_DATE = "publish_date";
+    public static final String COLUMN_NAME_RATING = "rating";
+    public static final String COLUMN_NAME_SUMMARY = "summary";
     public static final String COLUMN_NAME_VIDEO = "video";
     public static final String COLUMN_NAME_REVIEW = "review";
+    public static final String COLUMN_NAME_INFO = "info";   // holding original JSON
 
     public static final String COLUMN_NAME_CREATION_DATE = "creation_date";
     public static final String COLUMN_NAME_LAST_UPDATE_DATE = "last_update_date";
